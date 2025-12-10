@@ -736,6 +736,7 @@ def sign_up():
         "email": email_receive,
         "password": password_hash,
         "role": "USER",
+        "profile_image": "https://ik.imagekit.io/somnium/images.png",
     }
     db.users.insert_one(doc)
     return jsonify({"result": "success"})
@@ -873,7 +874,10 @@ def admin_user_list():
 def admin_update_menu():
     menus = list(db.menu.find({}, {"_id": False}))
     for menu in menus:
-        menu["harga"] = locale.format_string("%d", int(menu["harga"]), grouping=True)
+        try:
+            menu["harga"] = locale.format_string("%d", int(menu["harga"]), grouping=True)
+        except (ValueError, TypeError):
+            menu["harga"] = menu.get("harga", "0")
     token_receive = request.cookies.get("mytoken")
     if not token_receive:
         return redirect(url_for("login"))
@@ -1071,7 +1075,7 @@ def uploads():
         imagekit = ImageKit(
             private_key=PRIVATE_KEY_TOKEN_IMAGEKIT,
             public_key=PUBLIC_KEY_TOKEN_IMAGEKIT,
-            url_endpoint='https://ik.imagekit.io/coffeeshopteam3'
+            url_endpoint='https://ik.imagekit.io/somnium'
         )
 
         response = imagekit.upload_file(
