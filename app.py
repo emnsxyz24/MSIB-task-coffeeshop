@@ -18,7 +18,10 @@ from werkzeug.utils import secure_filename
 
 dotenv_path = join(dirname(__file__), ".env")
 load_dotenv(dotenv_path)
-locale.setlocale(locale.LC_ALL, "id_ID.UTF-8")
+try:
+    locale.setlocale(locale.LC_ALL, "id_ID.UTF-8")
+except locale.Error:
+    locale.setlocale(locale.LC_ALL, "C")
 UPLOAD_FOLDER = './static/uploads'
 
 SECRET_KEY = "KEDAIIMAJI"
