@@ -28,7 +28,6 @@ SECRET_KEY = "KEDAIIMAJI"
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 PUBLIC_KEY_TOKEN_IMAGEKIT = os.environ.get("PUBLIC_KEY_TOKEN_IMAGEKIT")
 PRIVATE_KEY_TOKEN_IMAGEKIT =  os.environ.get("PRIVATE_KEY_TOKEN_IMAGEKIT")
